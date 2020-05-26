@@ -20,6 +20,7 @@ cc_binary(
     copts = ["-g"],
     deps = [
         ":send-common",
+        ":common",
     ],
 )
 

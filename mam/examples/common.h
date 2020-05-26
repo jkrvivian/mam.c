@@ -17,6 +17,8 @@
 #include "common/trinary/tryte_ascii.h"
 #include "mam/api/api.h"
 
+#include <time.h>
+
 #define DUMMY_SEED                                                             \
   "DUMMYSEEDDUMMYSEEDDUMMYSEEDDUMMYSEEDDUMMYSEEDDUMMYSEEDDUMMYSEEDDUMMYSEED99" \
   "9999999"
@@ -37,6 +39,10 @@ retcode_t mam_example_channel_create(mam_api_t *const api, tryte_t *const channe
 retcode_t send_bundle(char const *const host, uint16_t const port, bundle_transactions_t *const bundle);
 retcode_t receive_bundle(char const *const host, uint16_t const port, tryte_t const *const bundle_hash,
                          bundle_transactions_t *const bundle);
+
+// time utility
+void test_time_start(struct timespec* start);
+void test_time_end(struct timespec* start, struct timespec* end);
 
 #ifdef __cplusplus
 }

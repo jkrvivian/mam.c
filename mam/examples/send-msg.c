@@ -9,31 +9,11 @@
  */
 
 #include <stdio.h>
-#include <time.h>
 
 #include "mam/examples/send-common.h"
+#include "mam/examples/common.h"
 
 struct timespec start_time, end_time;
-
-double diff_time(struct timespec start, struct timespec end) {
-  struct timespec diff;
-  if (end.tv_nsec - start.tv_nsec < 0) {
-    diff.tv_sec = end.tv_sec - start.tv_sec - 1;
-    diff.tv_nsec = end.tv_nsec - start.tv_nsec + 1000000000;
-  } else {
-    diff.tv_sec = end.tv_sec - start.tv_sec;
-    diff.tv_nsec = end.tv_nsec - start.tv_nsec;
-  }
-  return (diff.tv_sec + diff.tv_nsec / 1000000000.0);
-}
-
-void test_time_start(struct timespec* start) { clock_gettime(CLOCK_REALTIME, start); }
-
-void test_time_end(struct timespec* start, struct timespec* end) {
-  clock_gettime(CLOCK_REALTIME, end);
-  double difference = diff_time(*start, *end);
-  printf("%lf\n", difference);
-}
 
 int main(int ac, char **av) {
   mam_api_t api;
@@ -69,6 +49,13 @@ int main(int ac, char **av) {
     return EXIT_FAILURE;
   }
     test_time_end(&start_time, &end_time);
+
+  //trits_to_trytes(channel_id, channel_id_trytes, MAM_CHANNEL_ID_TRIT_SIZE);
+  fprintf(stderr, "Channel ID: ");
+  for (size_t i = 0; i < MAM_CHANNEL_ID_TRYTE_SIZE; i++) {
+    fprintf(stderr, "%c", channel_id[i]);
+  }
+  fprintf(stderr, "\n");
 
   bundle_transactions_new(&bundle);
 

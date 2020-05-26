@@ -12,6 +12,8 @@
 
 #include "mam/examples/common.h"
 
+struct timespec start_time, end_time;
+
 int main(int ac, char **av) {
   mam_api_t api;
   int ret = EXIT_SUCCESS;
@@ -37,15 +39,19 @@ int main(int ac, char **av) {
     return EXIT_FAILURE;
   }
 
+    test_time_start(&start_time);
   if (receive_bundle(av[1], atoi(av[2]), (tryte_t *)av[3], bundle) != RC_OK) {
     return EXIT_FAILURE;
   }
+  printf("receive bundle: ");
+    test_time_end(&start_time, &end_time);
 
   mam_psk_t_set_add(&api.psks, &psk);
   if (ac == 5) {
     mam_api_add_trusted_channel_pk(&api, (tryte_t *)av[4]);
   }
 
+  test_time_start(&start_time);
   if (mam_api_bundle_read(&api, bundle, &payload_trytes, &payload_size, &is_last_packet) == RC_OK) {
     if (payload_trytes == NULL || payload_size == 0) {
       fprintf(stderr, "No payload\n");
@@ -59,6 +65,8 @@ int main(int ac, char **av) {
   } else {
     fprintf(stderr, "mam_api_bundle_read_msg failed\n");
   }
+  printf("read bundle: ");
+  test_time_end(&start_time, &end_time);
 
   // Saving and destroying MAM API
   if ((ret = mam_api_save(&api, MAM_FILE, NULL, 0)) != RC_OK) {
