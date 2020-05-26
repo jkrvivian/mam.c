@@ -4,6 +4,11 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+local_repository(
+    name = "local_common",
+    path = "/home/jkrvivian/IOTA/iota_common",
+)
+
 git_repository(
     name = "org_iota_common",
     commit = "c04fcd03f98d07e3d9114dfbd003f4e679ec120d",

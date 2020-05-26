@@ -17,6 +17,7 @@ cc_binary(
 cc_binary(
     name = "send-msg",
     srcs = ["send-msg.c"],
+    copts = ["-g"],
     deps = [
         ":send-common",
     ],

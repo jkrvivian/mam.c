@@ -8,7 +8,7 @@ cc_library(
         "//mam:defs",
         "//mam/trits",
         "@org_iota_common//common:stdint",
-        "@org_iota_common//common/crypto/ftroika",
+        "@local_common//common/crypto/ftroika",
         "@org_iota_common//common/crypto/troika",
     ],
 )
